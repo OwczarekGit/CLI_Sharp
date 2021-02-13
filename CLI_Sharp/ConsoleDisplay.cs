@@ -13,14 +13,14 @@ namespace CLI_Sharp
         public String title = "CLI";
         private Thread thread;
         private String inputBuffer = "";
-        private KLog logger;
+        private Logger logger;
         private CommandProcessor processor;
         public Queue<String> displayBuffer { get; } = new Queue<string>();
         private DateTime startTime = DateTime.Now;
         private Queue<String> history = new Queue<string>();
         private int historyIndex = 0;
         
-        public ConsoleDisplay(KLog logger, CommandProcessor processor)
+        public ConsoleDisplay(Logger logger, CommandProcessor processor)
         {
             this.processor = processor;
             this.logger = logger;
@@ -30,7 +30,7 @@ namespace CLI_Sharp
             dynamicSize = true;
         }
 
-        public ConsoleDisplay(KLog logger,CommandProcessor processor, Vec2 size) : this(logger, processor)
+        public ConsoleDisplay(Logger logger,CommandProcessor processor, Vec2 size) : this(logger, processor)
         {
             this.size = size;
             dynamicSize = false;

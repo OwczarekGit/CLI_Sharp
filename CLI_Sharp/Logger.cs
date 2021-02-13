@@ -3,16 +3,16 @@ using System.IO;
 
 namespace CLI_Sharp
 {
-    public class KLog
+    public class Logger
     {
         private ConsoleDisplay display;
         public bool writeToDisplay = false;
         public bool logToFile = false;
         public String logFileName = $"{Directory.GetCurrentDirectory()}/log-{DateTime.Now.ToString("hh-mm-ss")}.txt";
 
-        public KLog(){}
+        public Logger(){}
 
-        public KLog(bool logToFile)
+        public Logger(bool logToFile)
         {
             this.logToFile = logToFile;
         }
@@ -43,7 +43,12 @@ namespace CLI_Sharp
              write($"[U][{getTimeNow()}] {s}");
         }
 
-        private void write(String s)
+        public void plain(object s)
+        {
+            write(s);
+        }
+
+        public void write(object s)
         {
             if (display == null || !writeToDisplay || !display.running)
             {
@@ -51,7 +56,7 @@ namespace CLI_Sharp
             }
             else
             {
-                display.addToDisplay(s);
+                display.addToDisplay(s.ToString());
             }
 
             if (logToFile)
