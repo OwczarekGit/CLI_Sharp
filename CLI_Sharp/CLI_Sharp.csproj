@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>CLI_Sharp</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <AssemblyName>CLI_Sharp</AssemblyName>
+        <Company>OwczarekGit</Company>
+        <Product>OwczarekGit</Product>
+    </PropertyGroup>
+
+</Project>
