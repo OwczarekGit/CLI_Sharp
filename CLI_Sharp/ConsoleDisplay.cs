@@ -10,7 +10,7 @@ namespace CLI_Sharp
         private Vec2 size = new Vec2(0,0);
         private bool dynamicSize = false;
         public bool running { get; private set; } = false;
-        public String title = "KCli";
+        public String title = "CLI";
         private Thread thread;
         private String inputBuffer = "";
         private KLog logger;
