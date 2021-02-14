@@ -25,11 +25,12 @@ namespace CLI_Sharp
             this.processor = processor;
             this.logger = logger;
             this.logger.setDisplay(this);
-            Console.CursorVisible = false;
+            this.processor.setLogger(this.logger);
+            this.processor.setDisplay(this);
             Console.OutputEncoding = Encoding.UTF8;
             dynamicSize = true;
             
-            displayBuffer.Enqueue("Hello World!");
+            displayBuffer.Enqueue("[-- Hello World! --]");
         }
 
         public ConsoleDisplay(Logger logger,CommandProcessor processor, Vec2 size) : this(logger, processor)
@@ -68,6 +69,7 @@ namespace CLI_Sharp
 
         public void start()
         {
+            Console.CursorVisible = false;
             updateSize();
             if (!running)
             {
@@ -75,6 +77,13 @@ namespace CLI_Sharp
                 thread.Start();
                 running = true;
             }
+        }
+
+        public void stop()
+        {
+            running = false;
+            clearDisplay();
+            Console.CursorVisible = true;
         }
 
         private void getUserInput()
