@@ -28,6 +28,8 @@ namespace CLI_Sharp
             Console.CursorVisible = false;
             Console.OutputEncoding = Encoding.UTF8;
             dynamicSize = true;
+            
+            displayBuffer.Enqueue("Hello World!");
         }
 
         public ConsoleDisplay(Logger logger,CommandProcessor processor, Vec2 size) : this(logger, processor)
@@ -46,6 +48,7 @@ namespace CLI_Sharp
                 }
 
                 displayBuffer.Enqueue(s);
+                forceRedraw();
             }
         }
 
@@ -76,7 +79,7 @@ namespace CLI_Sharp
 
         private void getUserInput()
         {
-            draw();
+            forceRedraw();
             while (running)
             {
                 var input = Console.ReadKey(true);
@@ -133,7 +136,7 @@ namespace CLI_Sharp
                     }
                 }
 
-                draw();
+                forceRedraw();
             }
             
         }
@@ -142,7 +145,7 @@ namespace CLI_Sharp
         {
             if (inputBuffer.Length > 0)
             {
-                if (history.Count > 20)
+                if (history.Count > 40)
                 {
                     history.Dequeue();
                 }
