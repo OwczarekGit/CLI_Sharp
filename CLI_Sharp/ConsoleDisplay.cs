@@ -196,10 +196,7 @@ namespace CLI_Sharp
         private void drawFrame()
         {
             setPosition(new Vec2(0,0));
-            drawVLine(size.y-1,'|');
-
-            setPosition(new Vec2(size.x-1, 0));
-            drawVLine(size.y-1,'|');
+            drawVLines(size.y-1,'|');
             
             setPosition(new Vec2(0, 0));
             drawHLine(size.x, '=');
@@ -250,12 +247,21 @@ namespace CLI_Sharp
             Console.Write(tmp);
         }
 
-        private void drawVLine(int len, Char c)
+        private void drawVLines(int len, Char c)
         {
+            String tmp = $"{c}";
+            
+            for (int i = 0; i < size.x-2; i++)
+            {
+                tmp += ' ';
+            }
+
+            tmp += c;
+
             for (int i = 0; i < len; i++)
             {
-                Console.Write(c);
-                Console.SetCursorPosition(Console.CursorLeft-1, Console.CursorTop + 1);
+               Console.Write(tmp); 
+               Console.SetCursorPosition(0, Console.CursorTop+1);
             }
         }
 
