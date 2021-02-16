@@ -41,14 +41,20 @@ namespace CLI_Sharp
         
         public void addToDisplay(String s)
         {
+            String[] tmp = s.Split('\n');
+
             lock (displayBuffer)
             {
-                if (displayBuffer.Count > size.y - 9)
+                foreach (var line in tmp)
                 {
-                    displayBuffer.Dequeue();
-                }
+                    if (displayBuffer.Count > size.y - 9)
+                    {
+                        displayBuffer.Dequeue();
+                    }
 
-                displayBuffer.Enqueue(s);
+                    displayBuffer.Enqueue(line);
+                }
+                
                 forceRedraw();
             }
         }
