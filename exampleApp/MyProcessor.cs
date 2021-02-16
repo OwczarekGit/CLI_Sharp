@@ -23,6 +23,15 @@ namespace exampleApp
             // and pass it to the Logger.err() method.
             if (cmd == "math")
                 logger.err(Program.calculate());
+
+            // If user enters "logging true" enable logging to file.
+            if (cmd == "logging true")
+                logger.logToFile = true;
+
+            // If user enters "logging false" disable logging to file.
+            if (cmd == "logging false")
+                logger.logToFile = false;
+
         }
     }
 }
