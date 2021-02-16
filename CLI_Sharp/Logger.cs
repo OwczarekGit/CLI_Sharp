@@ -61,7 +61,13 @@ namespace CLI_Sharp
 
             if (logToFile)
             {
-                //TODO Logging to file.
+                try
+                {
+                    StreamWriter sw = new StreamWriter(logFileName, true);
+                    sw.WriteLine(s);
+                    sw.Close();
+                }
+                catch (Exception e){}
             }
         }
 
