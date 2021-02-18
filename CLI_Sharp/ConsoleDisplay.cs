@@ -11,7 +11,8 @@ namespace CLI_Sharp
         private bool dynamicSize = false;
         public bool running { get; private set; } = false;
         public String title = "CLI";
-        private Thread thread;
+        private Thread inputThread;
+        private Thread updateThread;
         private String inputBuffer = "";
         private Logger logger;
         private CommandProcessor processor;
@@ -19,6 +20,7 @@ namespace CLI_Sharp
         private DateTime startTime = DateTime.Now;
         private Queue<String> history = new Queue<string>();
         private int historyIndex = 0;
+        private short delay = 1000;
         
         public ConsoleDisplay(Logger logger, CommandProcessor processor)
         {
@@ -38,6 +40,25 @@ namespace CLI_Sharp
             this.size = size;
             dynamicSize = false;
         }
+
+        private void displayUpdater()
+        {
+            while (running)
+            {
+                Thread.Sleep(1);
+
+                if (delay <= 0)
+                {
+                    forceRedraw();
+                    delay = 1000;
+                }
+                else
+                {
+                    
+                    delay--;
+                }
+            }
+        }
         
         public void addToDisplay(String s)
         {
@@ -54,8 +75,6 @@ namespace CLI_Sharp
 
                     displayBuffer.Enqueue(line);
                 }
-                
-                forceRedraw();
             }
         }
 
@@ -79,9 +98,11 @@ namespace CLI_Sharp
             updateSize();
             if (!running)
             {
-                thread = new Thread(getUserInput);
-                thread.Start();
                 running = true;
+                updateThread = new Thread(displayUpdater);
+                inputThread = new Thread(getUserInput);
+                inputThread.Start();
+                updateThread.Start();
             }
         }
 
@@ -94,7 +115,6 @@ namespace CLI_Sharp
 
         private void getUserInput()
         {
-            forceRedraw();
             while (running)
             {
                 var input = Console.ReadKey(true);
@@ -150,7 +170,6 @@ namespace CLI_Sharp
                         }
                     }
                 }
-
                 forceRedraw();
             }
             
