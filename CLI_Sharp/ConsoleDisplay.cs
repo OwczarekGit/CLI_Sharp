@@ -13,6 +13,7 @@ namespace CLI_Sharp
         public String title = "CLI";
         private Thread inputThread;
         private Thread updateThread;
+        public bool dynamicRefresh = true;
         private String inputBuffer = "";
         private Logger logger;
         private CommandProcessor processor;
@@ -49,7 +50,10 @@ namespace CLI_Sharp
 
                 if (delay <= 0)
                 {
-                    forceRedraw();
+                    if (dynamicRefresh)
+                    {
+                        forceRedraw();
+                    }
                     delay = 1000;
                 }
                 else
