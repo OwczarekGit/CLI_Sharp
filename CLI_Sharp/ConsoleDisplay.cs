@@ -100,6 +100,7 @@ namespace CLI_Sharp
         {
             Console.CursorVisible = false;
             updateSize();
+            forceRedraw();
             if (!running)
             {
                 running = true;
