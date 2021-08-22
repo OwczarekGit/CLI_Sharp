@@ -93,7 +93,10 @@ namespace CLI_Sharp
 
         public void forceRedraw()
         {
-            draw();
+		if (!running)
+			return;
+
+		draw();
         }
 
         public void start()
